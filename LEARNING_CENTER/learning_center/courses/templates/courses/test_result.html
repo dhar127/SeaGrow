@@ -1,0 +1,41 @@
+{% extends 'courses/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="auth-container">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Test Results</h2>
+        </div>
+        <div class="card-body">
+            <h3>{{ topic|title }} - {{ level|title }} Level</h3>
+            
+            <div class="alert {% if score_percentage >= 70 %}alert-success{% else %}alert-warning{% endif %} mt-4">
+                <h4 class="alert-heading">Your Score: {{ score_percentage|floatformat:1 }}%</h4>
+                <p class="mb-0">You got {{ correct_answers }} out of {{ total_questions }} questions correct.</p>
+            </div>
+            
+            {% if score_percentage >= 70 %}
+                <div class="text-success mt-3">
+                    <h5>🎉 Congratulations! You passed the test!</h5>
+                    <p>Great job demonstrating your knowledge of {{ topic }}!</p>
+                </div>
+            {% else %}
+                <div class="text-warning mt-3">
+                    <h5>Keep practicing!</h5>
+                    <p>You need 70% to pass. Review the material and try again.</p>
+                </div>
+            {% endif %}
+            
+            <div class="mt-4">
+                <a href="{% url 'courses:test_list' %}?topic={{ topic }}&difficulty={{ level }}" 
+                   class="btn btn-primary me-2">Try Again</a>
+                <a href="{% url 'courses:test_list' %}" 
+                   class="btn btn-secondary">Back to Tests</a>
+            </div>
+        </div>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}

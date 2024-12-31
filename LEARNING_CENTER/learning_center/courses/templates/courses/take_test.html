@@ -1,0 +1,22 @@
+{% extends 'courses/base.html' %}
+
+{% block content %}
+<div class="test-container">
+    <h1>{{ topic|title }} - {{ level|title }} Test</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% for question in questions %}
+        <div class="question">
+            <p>{{ forloop.counter }}. {{ question.question_text }}</p>
+            <ul>
+                <li><input type="radio" name="question_{{ forloop.counter }}" value="1"> {{ question.option_1 }}</li>
+                <li><input type="radio" name="question_{{ forloop.counter }}" value="2"> {{ question.option_2 }}</li>
+                <li><input type="radio" name="question_{{ forloop.counter }}" value="3"> {{ question.option_3 }}</li>
+                <li><input type="radio" name="question_{{ forloop.counter }}" value="4"> {{ question.option_4 }}</li>
+            </ul>
+        </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}

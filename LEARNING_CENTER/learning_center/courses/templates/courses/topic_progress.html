@@ -1,0 +1,21 @@
+<!-- templates/tests/topic_progress.html -->
+{% extends 'courses/base.html' %}
+
+{% block content %}
+<div class="topic-progress">
+    <h1>Progress in {{ topic }}</h1>
+    
+    {% for level, stats in level_stats.items %}
+        <div class="level-card">
+            <h2>{{ level|title }} Level</h2>
+            <div class="stats">
+                <p>Attempts: {{ stats.attempts }}</p>
+                <p>Average Score: {{ stats.avg_score|floatformat:1 }}%</p>
+                {% if stats.best_score %}
+                    <p>Best Score: {{ stats.best_score.score }}/5</p>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

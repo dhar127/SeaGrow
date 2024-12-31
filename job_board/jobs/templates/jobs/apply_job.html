@@ -1,0 +1,38 @@
+{% extends 'jobs/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Apply for {{ job.title }}</h2>
+                <div class="mb-4">
+                    <h4>Job Details</h4>
+                    <p><strong>Company:</strong> {{ job.company.company_name }}</p>
+                    <p><strong>Location:</strong> {{ job.location }}</p>
+                    <p><strong>Salary:</strong> {{ job.salary }}</p>
+                    <p><strong>Description:</strong></p>
+                    <p>{{ job.description }}</p>
+                    <p><strong>Requirements:</strong></p>
+                    <p>{{ job.requirements }}</p>
+                </div>
+                
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% if custom_form %}
+                        {% for field in custom_form %}
+                        <div class="mb-3">
+                            <label class="form-label">{{ field.label }}</label>
+                            <input type="text" name="{{ field.name }}" class="form-control" required>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.as_p }}
+                    {% endif %}
+                    <button type="submit" class="btn btn-primary">Submit Application</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

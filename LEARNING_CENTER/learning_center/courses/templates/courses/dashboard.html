@@ -1,0 +1,32 @@
+<!-- templates/dashboard.html -->
+{% extends 'courses/base.html' %}
+
+{% block content %}
+<div class="dashboard">
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>Total Tests</h3>
+            <p class="stat-value">{{ stats.total_tests }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Average Score</h3>
+            <p class="stat-value">{{ stats.avg_score|floatformat:1 }}%</p>
+        </div>
+        <div class="stat-card">
+            <h3>Courses Created</h3>
+            <p class="stat-value">{{ stats.courses_created }}</p>
+        </div>
+    </div>
+
+    <div class="recent-activity">
+        <h2>Recent Test Results</h2>
+        {% for result in stats.recent_results %}
+            <div class="activity-card">
+                <p>{{ result.get_topic_display }} - {{ result.get_level_display }}</p>
+                <p class="score">Score: {{ result.score }}/5</p>
+                <p class="date">{{ result.completed_at|date:"M d, Y" }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

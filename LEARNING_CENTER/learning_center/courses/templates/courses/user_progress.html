@@ -1,0 +1,28 @@
+<!-- templates/tests/user_progress.html -->
+{% extends 'courses/base.html' %}
+
+{% block content %}
+<div class="progress-dashboard">
+    <h1>Your Learning Progress</h1>
+    
+    <div class="results-grid">
+        {% for result in results %}
+        <div class="result-card">
+            <h3>{{ result.get_topic_display }}</h3>
+            <p class="level">Level: {{ result.get_level_display }}</p>
+            <p class="score">Score: {{ result.score }}/5</p>
+            <p class="date">Completed: {{ result.completed_at|date:"F j, Y" }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    
+    {% if not results %}
+    <div class="no-results">
+        <p>You haven't taken any tests yet.</p>
+        <a href="{% url 'test_list' %}" class="button">
+            Start a Test
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

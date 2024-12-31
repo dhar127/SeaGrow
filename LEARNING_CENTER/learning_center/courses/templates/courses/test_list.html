@@ -1,0 +1,106 @@
+{% extends 'courses/base.html' %}
+
+{% block content %}
+<div class="container">
+    <!-- Filters Section -->
+     <div class="filter-container">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <form method="GET" class="d-flex gap-3">
+                        <select name="topic" class="form-select" onchange="this.form.submit()">
+                            <option value="">Select a Topic</option>
+                            {% for topic_id, topic_name in topics %}
+                                <option value="{{ topic_id }}" {% if topic == topic_id %}selected{% endif %}>
+                                    {{ topic_name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <select name="difficulty" class="form-select" onchange="this.form.submit()">
+                            <option value="">Select Difficulty</option>
+                            {% for level_id, level_name in levels %}
+                                <option value="{{ level_id }}" {% if difficulty == level_id %}selected{% endif %}>
+                                    {{ level_name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Questions Section -->
+    {% if selected_topic and selected_difficulty %}
+<div class="test-container">
+    <h2 class="text-center mb-4">{{ selected_topic }} Test - {{ selected_difficulty|title }} Level</h2>
+    <form method="POST" action="{% url 'courses:submit_test' topic=selected_topic|lower difficulty=selected_difficulty|lower %}">
+        {% csrf_token %}
+        {% for question in questions %}
+        <div class="question-card">
+            <h5 class="question-title">Question {{ forloop.counter }}</h5>
+            <p class="question-text">{{ question.question_text }}</p>
+            
+            <div class="options">
+                <label>
+                    <input type="radio" name="question_{{ forloop.counter }}" value="1" required>
+                    {{ question.option_1 }}
+                </label>
+                <label>
+                    <input type="radio" name="question_{{ forloop.counter }}" value="2" required>
+                    {{ question.option_2 }}
+                </label>
+                <label>
+                    <input type="radio" name="question_{{ forloop.counter }}" value="3" required>
+                    {{ question.option_3 }}
+                </label>
+                <label>
+                    <input type="radio" name="question_{{ forloop.counter }}" value="4" required>
+                    {{ question.option_4 }}
+                </label>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="text-center mt-4 mb-4">
+            <button type="submit" class="btn btn-primary btn-lg">Submit Test</button>
+        </div>
+    </form>
+</div>
+{% endif %}
+
+    <!-- Previous Results Section -->
+    {% if user_results %}
+    <div class="filter-container">
+    <div class="row mt-4">
+        <div class="col-12">
+            <h3>Your Previous Tests</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Topic</th>
+                            <th>Level</th>
+                            <th>Score</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for result in user_results %}
+                        <tr>
+                            <td>{{ result.topic }}</td>
+                            <td>{{ result.level|title }}</td>
+                            <td>{{ result.score }}%</td>
+                            <td>{{ result.completed_at|date:"M d, Y" }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

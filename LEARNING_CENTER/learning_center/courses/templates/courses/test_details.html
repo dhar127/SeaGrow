@@ -1,0 +1,32 @@
+<!-- templates/tests/test_detail.html -->
+{% extends 'courses/base.html' %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {% for question in questions %}
+    <div class="question-card">
+        <h3>{{ question.question_text }}</h3>
+        <div class="options">
+            <label>
+                <input type="radio" name="question_{{ question.id }}" value="1">
+                {{ question.option_1 }}
+            </label>
+            <label>
+                <input type="radio" name="question_{{ question.id }}" value="2">
+                {{ question.option_2 }}
+            </label>
+            <label>
+                <input type="radio" name="question_{{ question.id }}" value="3">
+                {{ question.option_3 }}
+            </label>
+            <label>
+                <input type="radio" name="question_{{ question.id }}" value="4">
+                {{ question.option_4 }}
+            </label>
+        </div>
+    </div>
+    {% endfor %}
+    <button type="submit" class="button">Submit Test</button>
+</form>
+{% endblock %}

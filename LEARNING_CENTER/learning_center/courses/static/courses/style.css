@@ -1,0 +1,323 @@
+/* Global Styles */
+:root {
+    --primary-light: #e6e6fa;
+    --primary-dark: #4b0082;
+    --accent-light: #f8f8ff;
+    --accent-dark: #2b0047;
+    --text-light: #ffffff;
+    --text-dark: #000000;
+    --success: #28a745;
+    --warning: #ffc107;
+    --danger: #dc3545;
+    --nav-button: #6a1b9a;
+}
+
+body {
+    background-color: var(--primary-light);
+    color: var(--text-dark);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Content Container */
+.main-content {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--text-light);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Navigation */
+.navbar {
+    background-color: var(--primary-dark) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem 2rem;
+}
+
+.navbar-brand {
+    color: var(--text-light) !important;
+    font-size: 2.5rem !important;
+    font-weight: bold;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.navbar-nav {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.nav-item {
+    list-style: none;
+    margin: 0 0.5rem;
+}
+
+.nav-link {
+    color: var(--text-light) !important;
+    background-color: var(--nav-button);
+    padding: 0.5rem 1rem !important;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.nav-link:hover {
+    color: var(--text-light) !important;
+    background-color: var(--accent-dark);
+    transform: translateY(-2px);
+}
+
+/* Cards */
+.card {
+    background-color: var(--text-light);
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+}
+
+/* Authentication Forms */
+.auth-container {
+    max-width: 500px;
+    margin: 5rem auto;
+    padding: 2rem;
+    background-color: var(--text-light);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.auth-container .card {
+    border: none;
+    box-shadow: none;
+}
+
+.auth-container .card-header {
+    text-align: center;
+    padding: 1.5rem;
+}
+
+.auth-container .card-header h3 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+/* Search and Filters */
+.filter-container {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--text-light);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.filter-container select,
+.filter-container input {
+    font-size: 1.2rem;
+    padding: 0.8rem;
+}
+
+.filter-container .btn {
+    font-size: 1.2rem;
+    padding: 2rem 2rem;
+}
+
+/* Video Grid */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.video-card {
+    background-color: var(--text-light);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Dashboard Stats */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background-color: var(--text-light);
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.stat-value {
+    color: var(--primary-dark);
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+    color: var(--text-light);
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-dark);
+    border-color: var(--accent-dark);
+}
+
+.btn-outline-primary {
+    border-color: var(--primary-dark);
+    color: var(--primary-dark);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+}
+
+/* Forms */
+.form-control,
+.form-select {
+    border: 1px solid var(--primary-dark);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-dark);
+    box-shadow: 0 0 0 0.2rem rgba(75, 0, 130, 0.25);
+}
+
+/* Test Questions */
+.test-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--text-light);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.question-card {
+    background-color: var(--primary-light);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.question-card h3 {
+    color: var(--primary-dark);
+    margin-bottom: 1.5rem;
+}
+
+.options label {
+    display: block;
+    padding: 1rem;
+    margin: 0.8rem 0;
+    background-color: var(--text-light);
+    border: 1px solid var(--primary-dark);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.options label:hover {
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+}
+
+/* Tables */
+.table {
+    background-color: var(--text-light);
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: var(--primary-light);
+}
+
+/* Alerts */
+.alert-success {
+    background-color: var(--success);
+    color: var(--text-light);
+}
+
+.alert-warning {
+    background-color: var(--warning);
+    color: var(--text-dark);
+}
+
+.alert-danger {
+    background-color: var(--danger);
+    color: var(--text-light);
+}
+
+/* Modal */
+.modal-content {
+    background-color: var(--text-light);
+}
+
+.modal-header {
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .video-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .navbar-brand {
+        position: static;
+        transform: none;
+        text-align: center;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .navbar-nav {
+        margin: 1rem 0;
+        justify-content: center;
+    }
+
+    .nav-item {
+        margin: 0.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .main-content,
+    .filter-container,
+    .test-container,
+    .auth-container {
+        margin: 1rem;
+        padding: 1rem;
+    }
+}

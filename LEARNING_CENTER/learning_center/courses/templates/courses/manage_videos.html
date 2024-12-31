@@ -1,0 +1,83 @@
+<!-- templates/courses/manage_videos.html -->
+{% extends 'courses/base.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">Manage Videos for {{ course.title }}</h1>
+    
+    <!-- Search Form -->
+    <div class="mb-8">
+        <form method="POST" class="flex gap-4">
+            {% csrf_token %}
+            <input type="text" 
+                   name="video_query" 
+                   placeholder="Search for videos..." 
+                   class="flex-1 px-4 py-2 border rounded-lg">
+            <button type="submit" 
+                    class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600">
+                Search Videos
+            </button>
+        </form>
+    </div>
+    
+    <!-- Current Videos -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for video in videos %}
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <img src="{{ video.thumbnail_url }}" 
+                 alt="{{ video.title }}" 
+                 class="w-full h-48 object-cover">
+            <div class="p-4">
+                <h3 class="font-semibold mb-2">{{ video.title }}</h3>
+                <p class="text-gray-600 text-sm mb-2">{{ video.channel_name }}</p>
+                <p class="text-gray-500 text-sm mb-4">Duration: {{ video.duration }}</p>
+                <div class="flex justify-between items-center">
+                    <a href="#" 
+                       onclick="previewVideo('{{ video.embed_url }}')"
+                       class="text-blue-500 hover:text-blue-600">
+                        Preview
+                    </a>
+                    <form method="POST" action="{% url 'courses:delete_course_video' video.id %}">
+                        {% csrf_token %}
+                        <button type="submit" 
+                                class="text-red-500 hover:text-red-600"
+                                onclick="return confirm('Are you sure you want to remove this video?')">
+                            Remove
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Video Preview Modal -->
+<div id="videoModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
+    <div class="bg-white p-4 rounded-lg w-full max-w-3xl">
+        <div class="relative" style="padding-bottom: 56.25%;">
+            <iframe id="videoPreview"
+                    class="absolute inset-0 w-full h-full"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+            </iframe>
+        </div>
+        <button onclick="closeVideoModal()"
+                class="mt-4 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+            Close
+        </button>
+    </div>
+</div>
+
+<script>
+function previewVideo(embedUrl) {
+    document.getElementById('videoPreview').src = embedUrl;
+    document.getElementById('videoModal').classList.remove('hidden');
+}
+
+function closeVideoModal() {
+    document.getElementById('videoPreview').src = '';
+    document.getElementById('videoModal').classList.add('hidden');
+}
+</script>

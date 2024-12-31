@@ -1,0 +1,96 @@
+{% extends 'courses/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Existing course details -->
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{ course.title }}</h2>
+            <!-- Other course details -->
+        </div>
+    </div>
+
+    <!-- YouTube Videos Section -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <h3>Related Videos</h3>
+            <div class="row" id="video-container">
+                {% for video in videos %}
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" 
+                                    src="{{ video.url }}" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ video.title }}</h5>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    Channel: {{ video.channel }} | Duration: {{ video.duration }}
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Load More Button -->
+            <div class="text-center mt-3">
+                <button id="load-more" class="btn btn-primary">Load More Videos</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add this JavaScript at the bottom of your template -->
+<script>
+    document.getElementById('load-more')?.addEventListener('click', function() {
+        currentPage++;
+        const topic = new URLSearchParams(window.location.search).get('topic');
+        
+        fetch(`/courses/load-more-videos/?topic=${topic}&page=${currentPage}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.videos.length > 0) {
+                    const container = document.querySelector('.video-grid');
+                    data.videos.forEach(video => {
+                        container.insertAdjacentHTML('beforeend', `
+                            <div class="video-card">
+                                <img src="${video.thumbnail}" 
+                                     class="card-img-top" 
+                                     alt="${video.title}"
+                                     style="height: 200px; object-fit: cover;">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">${video.title}</h5>
+                                    <p class="card-text">
+                                        <small class="text-muted">
+                                            Channel: ${video.channel}<br>
+                                            Duration: ${video.duration}
+                                        </small>
+                                    </p>
+                                    <button class="btn btn-primary mt-auto" 
+                                            onclick="showVideo('${video.url}', '${video.title.replace(/'/g, "\\'")}')">
+                                        Watch Video
+                                    </button>
+                                </div>
+                            </div>
+                        `);
+                    });
+                    if (data.videos.length < videosPerPage) {
+                        this.style.display = 'none';
+                    }
+                } else {
+                    this.style.display = 'none';
+                }
+            })
+            .catch(error => {
+                console.error('Error loading more videos:', error);
+                this.style.display = 'none';
+            });
+    });
+    </script>
+{% endblock %}
