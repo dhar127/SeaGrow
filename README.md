@@ -1,5 +1,7 @@
 
 # SeaGro - Comprehensive Online Platform
+# Complete Implementation video
+https://drive.google.com/file/d/1e1o9mDkQWviNA52egUbw6--4yDFn1AFf/view?usp=sharing
 
 ## 🚀 Overview
 SeaGro is an all-in-one platform offering a variety of services to users. It combines features such as a **Job Board**, **Learning Center**, **Community**, **Bike Sharing**, **Real-Time Chat**, **Content Sharing**, and **Personal Task Management**. Built using cutting-edge technologies, SeaGro aims to provide a **user-friendly**, **scalable** platform that facilitates **community building**, **job searching**, and **knowledge sharing**.
